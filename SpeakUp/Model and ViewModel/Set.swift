@@ -6,17 +6,26 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Set: Identifiable, Codable {
     var id = UUID()
     var title: String
     var topics: [Topic]
+   
+    
+}
+
+struct Term: Identifiable, Codable {
+    var id = UUID()
+    var text: String
 }
 
 
 struct Topic: Identifiable, Codable {
     var id = UUID()
     var title: String
-    var terms: [String]
+    var color: Color = .red
+    var terms: [Term]
 }
                 
