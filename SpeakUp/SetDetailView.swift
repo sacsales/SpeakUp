@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct SetDetailView: View {
+    
+    
+    @Binding  var set : Set
+    
+           
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List(set.topics) { topic in
+            Text(topic.title)
+        }
     }
 }
 
 #Preview {
-    SetDetailView()
+    SetDetailView(set: .constant(Set(title: "Sample Subject", topics:
+                            [Topic(title: "Numbers", terms: ["one", "two", "three"]),
+                            Topic(title: "Colours", terms: ["pink", "blue", "black"])])))
 }

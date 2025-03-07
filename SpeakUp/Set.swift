@@ -6,3 +6,17 @@
 //
 
 import Foundation
+
+struct Set: Identifiable, Codable {
+    var id = UUID()
+    var title: String
+    var topics: [Topic]
+}
+
+
+struct Topic: Identifiable, Codable {
+    var id = UUID()
+    var title: String
+    var terms: [String]
+}
+                

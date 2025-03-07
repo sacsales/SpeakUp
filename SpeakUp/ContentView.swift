@@ -8,14 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    
+   @State private var sampleSets = [Set(title: "Sample Subject", topics:
+        [Topic(title: "Numbers", terms: ["one", "two", "three"]),
+        Topic(title: "Colours", terms: ["pink", "blue", "black"])])]
+    
+    
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        
+        NavigationStack {
+            List($sampleSets) { $set in
+                NavigationLink {
+                    SetDetailView(set: $set)
+                } label: {
+                    Text(set.title)
+                }
+            }
+            .navigationTitle("Sets")
+            
         }
-        .padding()
+        
     }
 }
 
