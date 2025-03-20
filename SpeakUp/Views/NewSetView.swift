@@ -10,7 +10,7 @@ import SwiftUI
 struct NewSetView: View {
     
     @State private var showSheet = false
-    @Binding var sets : [Set]
+    @Binding var sets : [SubjectSet]
     @State private var newSet : String = ""
    
     
@@ -22,15 +22,16 @@ struct NewSetView: View {
             }
             
             Button("Save") {
-                let set = Set(title: newSet, topics: [])
+                let set = SubjectSet(title: newSet, topics: [])
                 sets.append(set)
+                
             }
         }
     }
 }
 
 #Preview {
-    NewSetView(sets: .constant([Set(title: "Sample Subject", topics:
+    NewSetView(sets: .constant([SubjectSet(title: "Sample Subject", topics:
                                     [Topic(title: "Numbers", terms:
                                             [Term(text: "one"),
                                              Term(text: "two")]),])]))

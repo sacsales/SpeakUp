@@ -6,3 +6,40 @@
 //
 
 import Foundation
+import Observation
+import SwiftUI
+
+@Observable class SubjectSetManager: ObservableObject {
+    var subjectSets: [SubjectSet] = [] {
+        didSet {
+            save()
+        }
+    }
+        
+    init() {
+        load()
+    }
+    
+    private func getArchiveURL() -> URL {
+        URL.documentsDirectory.appending(path: "subjectSets.json")
+    }
+    
+    private func save() {
+        let archiveURL = getArchiveURL()
+        let jsonEncoder = JSONEncoder()
+        jsonEncoder.outputFormatting = .prettyPrinted
+        
+        let encodedSubjectSets = try? jsonEncoder.encode(subjectSets)
+        try? encodedSubjectSets?.write(to: archiveURL, options: .noFileProtection)
+    }
+    
+    private func load() {
+        let archiveURL = getArchiveURL()
+        let jsonDecoder = JSONDecoder()
+                
+        if let retrievedSubjectSetData = try? Data(contentsOf: archiveURL),
+           let subjectSetsDecoded = try? jsonDecoder.decode([SubjectSet].self, from: retrievedSubjectSetData) {
+            subjectSets = subjectSetsDecoded
+        }
+    }
+}

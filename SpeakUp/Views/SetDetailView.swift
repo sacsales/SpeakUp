@@ -8,21 +8,45 @@
 import SwiftUI
 
 struct SetDetailView: View {
-    @Binding var set : Set
+    
+    
+    @Binding var subjectSet : SubjectSet
     @State private var showSheet = false
-           
+    
+    @State private var gameScreen = false
+    
     var body: some View {
-        NavigationStack {
-            List($set.topics) { $topic in
-                NavigationLink{
-                    TermsView(topic: $topic)
-                } label: {
-                    Image(systemName: "circle.fill")
-                        .foregroundStyle(topic.color)
-                    Text(topic.title)
+        NavigationView {
+            VStack {
+                NavigationStack {
+                    
+                    List($subjectSet.topics) { $topic in
+                        NavigationLink{
+                            TermsView(topic: $topic)
+                        } label: {
+                            Image(systemName: "circle.fill")
+                                .foregroundStyle(topic.color)
+                            Text(topic.title)
+                        }
+                    }
+                    .navigationTitle(subjectSet.title)
+                    
+                    
                 }
+               
+                
+                NavigationLink(destination: GameSetupView(chosenSet: $subjectSet)) {
+                    Text("a")
+                    
+                }
+               
+               
+                
+                
             }
-            .navigationTitle(set.title)
+            
+            
+            
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -31,11 +55,15 @@ struct SetDetailView: View {
                 } label: {
                     Image(systemName: "plus")
                 }
+                
             }
+            
+            
         }
         
+        
         .sheet(isPresented: $showSheet) {
-            NewTopicView(set: $set)
+            NewTopicView(subjectSet: $subjectSet)
                 .presentationDetents([.medium])
         }
         
@@ -44,7 +72,7 @@ struct SetDetailView: View {
 }
 
 #Preview {
-    SetDetailView(set: .constant(Set(title: "Basics", topics:
-                                        [Topic(title: "Numbers", terms: [Term(text: "one"), Term(text: "two"),]),
-                                         Topic(title: "Colours", terms: [Term(text: "pink"),])])))
+    SetDetailView(subjectSet: .constant(SubjectSet(title: "Basics", topics:
+                                                [Topic(title: "Numbers", terms: [Term(text: "one"), Term(text: "two"),]),
+                                                 Topic(title: "Colours", terms: [Term(text: "pink"),])])))
 }

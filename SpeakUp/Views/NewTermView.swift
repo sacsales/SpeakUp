@@ -23,6 +23,7 @@ struct NewTermView: View {
             Button("Save") {
                 let term = Term(text: newTerm)
                 topic.terms.append(term)
+                newTerm = ""
             }
         }
     }

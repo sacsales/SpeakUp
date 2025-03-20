@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewTopicView: View {
     
-    @Binding var set: Set
+    @Binding var subjectSet: SubjectSet
     @State var newTopic = ""
     @State var color: Color = .blue
     
@@ -22,14 +22,14 @@ struct NewTopicView: View {
             }
             Button("Save") {
                 let topic = Topic(title: newTopic, color: color, terms: [])
-                set.topics.append(topic)
+                subjectSet.topics.append(topic)
             }
         }
     }
 }
 
 #Preview {
-    NewTopicView(set: .constant(Set(title: "Basics", topics:
+    NewTopicView(subjectSet: .constant(SubjectSet(title: "Basics", topics:
                                         [Topic(title: "Numbers", terms: [Term(text: "one"), Term(text: "two"),]),
                                          Topic(title: "Colours", terms: [Term(text: "pink"),])])))
 }
