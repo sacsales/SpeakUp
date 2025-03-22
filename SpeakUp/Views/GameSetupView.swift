@@ -19,7 +19,9 @@ struct GameSetupView: View {
     
     var body: some View {
 
-        VStack () {
+        NavigationStack {
+            VStack {
+            VStack {
                 Text("New Game")
                     .font(.largeTitle)
                     .bold()
@@ -42,36 +44,44 @@ struct GameSetupView: View {
                     .cornerRadius(20)
                     .border(.black)
                     
-                    Form {
-                        Stepper("Number of teams: \(numberOfTeams)", value: $numberOfTeams, in: 2...5, onEditingChanged: { _ in
-                            updateTeams()
-                        })
-                         
-                        
-                        Stepper("Timer length: \(timerLength) seconds", value: $timerLength, in: 20...40)
-                        
-                        VStack {
-                            ForEach($teams, id: \.self) { $team in
-                                TextField("Team name", text: $team.name)
-                                    .textFieldStyle(.roundedBorder)
-                            }
+                    
+                    Stepper("Number of teams: \(numberOfTeams)", value: $numberOfTeams, in: 2...5, onEditingChanged: { _ in
+                        updateTeams()
+                    })
+                    
+                    
+                    Stepper("Timer length: \(timerLength) seconds", value: $timerLength, in: 20...40)
+                    
+                    VStack {
+                        ForEach($teams, id: \.self) { $team in
+                            TextField("Team name", text: $team.name)
+                                .textFieldStyle(.roundedBorder)
                         }
-                        
                     }
+                }
+                .padding()
                     
                     
+                    NavigationLink("aha", destination:  GameView(chosenSet: $chosenSet, teams: $teams, timerLength: $timerLength))
+                       
+                    
+                        .buttonStyle(.borderedProminent)
+                        .tint(.purple)
+                        .padding()
+                        .ignoresSafeArea()
+                       
                     
                     
                     
                 }
-                .padding()
                 
-            
+                
+            }
             
             
         }
-        
-        .padding()
+        .navigationBarBackButtonHidden(true)
+       
        
            
       
