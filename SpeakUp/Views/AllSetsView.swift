@@ -11,19 +11,17 @@ struct AllSetsView: View {
     
     @StateObject var subjectSetManager = SubjectSetManager()
     
-    
-    
     @State private var showSheet = false
     
     
     var body: some View {
         NavigationStack {
             
-            List($subjectSetManager.subjectSets) { $set in
+            List($subjectSetManager.subjectSets, editActions: [.all]) { $subjectSet in
                 NavigationLink {
-                    SetDetailView(subjectSet: $set)
+                    SetDetailView(subjectSet: $subjectSet)
                 } label: {
-                    Text(set.title)
+                    Text(subjectSet.title)
                         .bold()
                 }
                 

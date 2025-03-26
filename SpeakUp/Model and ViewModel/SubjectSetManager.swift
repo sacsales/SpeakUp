@@ -20,6 +20,12 @@ import SwiftUI
         load()
     }
     
+    func deleteTerm(from subjectIndex: Int, in topicIndex: Int, at termIndex: IndexSet) {
+            subjectSets[subjectIndex].topics[topicIndex].terms.remove(atOffsets: termIndex)
+        }
+    
+    
+    
     private func getArchiveURL() -> URL {
         URL.documentsDirectory.appending(path: "subjectSets.json")
     }

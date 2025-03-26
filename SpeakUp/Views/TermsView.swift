@@ -9,14 +9,27 @@ import SwiftUI
 
 struct TermsView: View {
     
+    
+    
+  
+    
+    
     @Binding var topic : Topic
+   
     @State var newTerm = ""
     @State var showSheet = false
     
     var body: some View {
-        VStack {
-            List(topic.terms) { term in
-                Text(term.text)
+        List {
+            ForEach($topic.terms, editActions: [.delete]) { term in
+                Text(term.text.wrappedValue)
+            }
+            .onDelete { indexSet in
+                if !topic.terms.isEmpty { // ✅ Prevents crash when array is empty
+                    topic.terms.remove(atOffsets: indexSet)
+                   }
+              
+                
             }
             .navigationTitle(topic.title)
            
@@ -24,6 +37,7 @@ struct TermsView: View {
                 
             
         }
+        
         
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -33,6 +47,10 @@ struct TermsView: View {
                     Image(systemName: "plus")
                 }
             }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                            EditButton()
+                        }
         }
         
         .sheet(isPresented: $showSheet) {

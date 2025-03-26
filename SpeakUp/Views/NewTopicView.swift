@@ -9,6 +9,8 @@ import SwiftUI
 
 struct NewTopicView: View {
     
+  //  @ObservedObject var subjectSetManager: SubjectSetManager
+    
     @Binding var subjectSet: SubjectSet
     @State var newTopic = ""
     @State var color: Color = .blue
@@ -23,6 +25,7 @@ struct NewTopicView: View {
             Button("Save") {
                 let topic = Topic(title: newTopic, color: color, terms: [])
                 subjectSet.topics.append(topic)
+                //save()
             }
         }
     }
