@@ -17,7 +17,7 @@ struct SetDetailView: View {
  
     @State private var gameScreen = false
     
-    
+    @ObservedObject var subjectSetManager : SubjectSetManager
   //  @EnvironmentObject var subjectSet: SubjectSet
 
     var body: some View {
@@ -30,12 +30,21 @@ struct SetDetailView: View {
                         NavigationLink {
                             TermsView(topic: $topic)
                         } label: {
-                            Text(topic.title)
+                        
+                            Image(systemName: "circle.fill")
+                                .foregroundStyle(topic.color)
+                                Text(topic.title)
+                            
                         }
                         
                     }
                     .onDelete { indexSet in
+                        subjectSetManager.save()
+                        subjectSetManager.load()
                         subjectSet.topics.remove(atOffsets: indexSet)
+                        
+                        subjectSetManager.save()
+                        subjectSetManager.load()
                     }
                 }
                 
@@ -73,7 +82,7 @@ struct SetDetailView: View {
             
             
             .sheet(isPresented: $showSheet) {
-                NewTopicView(subjectSet: $subjectSet)
+                NewTopicView(subjectSetManager: subjectSetManager, subjectSet: $subjectSet)
                     .presentationDetents([.medium])
             }
             
@@ -108,5 +117,5 @@ struct SetDetailView: View {
 #Preview {
     SetDetailView(subjectSet: .constant(SubjectSet(title: "Basics", topics:
                                                 [Topic(title: "Numbers", terms: [Term(text: "one"), Term(text: "two"),]),
-                                                 Topic(title: "Colours", terms: [Term(text: "pink"),])])))
+                                                 Topic(title: "Colours", terms: [Term(text: "pink"),])])), subjectSetManager: SubjectSetManager())
 }

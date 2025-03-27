@@ -30,7 +30,7 @@ import SwiftUI
         URL.documentsDirectory.appending(path: "subjectSets.json")
     }
     
-    private func save() {
+     func save() {
         let archiveURL = getArchiveURL()
         let jsonEncoder = JSONEncoder()
         jsonEncoder.outputFormatting = .prettyPrinted
@@ -39,7 +39,7 @@ import SwiftUI
         try? encodedSubjectSets?.write(to: archiveURL, options: .noFileProtection)
     }
     
-    private func load() {
+     func load() {
         let archiveURL = getArchiveURL()
         let jsonDecoder = JSONDecoder()
                 

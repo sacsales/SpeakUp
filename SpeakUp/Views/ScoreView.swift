@@ -15,10 +15,6 @@ struct ScoreView: View {
     var body: some View {
         
         VStack {
-            Text("Points")
-                .font(.title)
-                .bold()
-                .padding()
             HStack {
                 ForEach(teams) { team in
                     

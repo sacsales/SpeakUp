@@ -12,7 +12,11 @@ struct NewSetView: View {
     @State private var showSheet = false
     @Binding var sets : [SubjectSet]
     @State private var newSet : String = ""
-   
+    @ObservedObject var subjectSetManager : SubjectSetManager
+    
+    
+    @Environment(\.dismiss) var goAway
+    
     
     var body: some View {
         Form {
@@ -22,9 +26,14 @@ struct NewSetView: View {
             }
             
             Button("Save") {
+                subjectSetManager.save()
+                subjectSetManager.load()
                 let set = SubjectSet(title: newSet, topics: [])
                 sets.append(set)
+                subjectSetManager.save()
+                subjectSetManager.load()
                 
+                goAway()
             }
         }
     }
@@ -34,5 +43,5 @@ struct NewSetView: View {
     NewSetView(sets: .constant([SubjectSet(title: "Sample Subject", topics:
                                     [Topic(title: "Numbers", terms:
                                             [Term(text: "one"),
-                                             Term(text: "two")]),])]))
+                                             Term(text: "two")]),])]), subjectSetManager: SubjectSetManager())
 }

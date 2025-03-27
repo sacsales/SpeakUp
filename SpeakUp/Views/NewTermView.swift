@@ -24,6 +24,7 @@ struct NewTermView: View {
                 let term = Term(text: newTerm)
                 topic.terms.append(term)
                 newTerm = ""
+                
             }
         }
     }

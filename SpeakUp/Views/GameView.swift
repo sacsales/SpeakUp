@@ -40,6 +40,11 @@ struct GameView: View {
     
     @State private var showScore = true
     
+    
+    @State var pointsToWin : Int
+    
+    @State var showEndScreen = false
+    
     var body: some View {
         
         
@@ -60,13 +65,19 @@ struct GameView: View {
                                 self.stopTimer()
                                 teams[currentTeamIndex].points += currentRoundPts
                                 showRect = true
+                                
+                                
                                 showScore = true
+                                if checkWin(winValue: pointsToWin) {
+                                    showEndScreen = true 
+                                }
+                                
                                 
                                 currentRoundPts = 0
                                 timeRemaining = timerLength
+                                skipped = false
                                 
-                                
-                                if currentTeamIndex + 1 > teams.count - 1 {
+                                if currentTeamIndex + 1 == teams.endIndex {
                                     currentTeamIndex = 0
                                 } else {
                                     currentTeamIndex += 1
@@ -86,7 +97,7 @@ struct GameView: View {
                     Button {
                         if skipped == false {
                             skipped = true
-                            randomTerm = Int.random(in: 1..<chosenSet.topics[topicIndex].terms.count)
+                            randomTerm = Int.random(in: 1..<chosenSet.topics[topicIndex].terms.endIndex)
                             
                         }
                     } label: {
@@ -95,22 +106,12 @@ struct GameView: View {
                             .foregroundStyle(skipped ? .gray : .purple)
                     }
                     
-                    ZStack {
-                        
-                        Rectangle()
-                            .frame(width: UIScreen.main.bounds.height * 0.6, height: UIScreen.main.bounds.width * 0.5)
-                            .foregroundStyle(chosenSet.topics[topicIndex].color)
-                            .clipShape(.rect(cornerRadius: 15))
-                        
-                        Text("\(chosenSet.topics[topicIndex].terms[randomTerm].text)")
-                            .foregroundStyle(.white)
-                            .font(.title2)
-                            .bold()
-                        
-                    }
+
+                    
+                    GameTermView(color: $chosenSet.topics[topicIndex].color, term: $chosenSet.topics[topicIndex].terms[randomTerm].text)
                     
                     Button {
-                        randomTerm = Int.random(in: 0..<chosenSet.topics[topicIndex].terms.count)
+                        randomTerm = Int.random(in: 1..<chosenSet.topics[topicIndex].terms.endIndex)
                         currentRoundPts += 1
                     } label: {
                         Image(systemName: "checkmark.circle.fill")
@@ -137,19 +138,47 @@ struct GameView: View {
             if showRect {
                 
                 if showScore {
+                    
+                    
                     ZStack {
                         Rectangle()
                             .frame(width: UIScreen.main.bounds.height * 0.6, height: UIScreen.main.bounds.width * 0.7)
                             .foregroundStyle(.white)
                             .clipShape(.rect(cornerRadius: 15))
                         
-                        VStack {
-                            ScoreView(teams: $teams)
-                            Button("Go!") {
-                                showScore = false
+                        
+                        if showEndScreen == true {
+                            VStack {
+                                
+                                Text("\(winner().name)wins with \(winner().points) points!")
+                                    .font(.title)
+                                    .bold()
+                                    .padding()
+                                
+                                ScoreView(teams: $teams)
+                                NavigationLink(destination: AllSetsView()) {
+                                    Text("End Game")
+                                        .padding()
+                                }
+                                .buttonStyle(.borderedProminent)
+                                
                             }
-                            .buttonStyle(.borderedProminent)
                             
+                        } else {
+                            VStack {
+                                
+                                Text("Points")
+                                    .font(.title)
+                                    .bold()
+                                    .padding()
+                                ScoreView(teams: $teams)
+                                Button("Go!") {
+                                    showScore = false
+                                    topicIndex = Int.random(in: chosenSet.topics.indices)
+                                }
+                                .buttonStyle(.borderedProminent)
+                                
+                            }
                         }
                     }
                 } else {
@@ -172,6 +201,7 @@ struct GameView: View {
                                 showScore = false
                                 startTimer()
                                 isTimerRunning = true
+                                
                                 
                             }
                             .buttonStyle(.borderedProminent)
@@ -208,12 +238,37 @@ struct GameView: View {
     }
     
     
+    func checkWin(winValue: Int ) -> Bool {
+        var win = false
+        for team in teams {
+            if team.points >= winValue {
+                win = true
+            }
+        }
+        return win
+        
+    }
+    
+    func winner() -> Team {
+     // var highest = 0
+      var winner: Team = Team(name: "")
+        
+        for team in teams {
+            if team.points >= winner.points {
+                winner = team
+            }
+        }
+        return winner
+        
+    }
+    
+    
 }
 
 
 
 #Preview {
-    GameView(chosenSet: .constant(SubjectSet(title: "Basics", topics: [Topic(title: "Random", terms: [Term(text: "red blood cell"), Term(text: "shark"), Term(text: "eutrophication"), Term(text: "potometer")])])), teams: .constant([Team(name: "Team1"), Team(name: "Team2")]), timerLength: .constant(30))
+    GameView(chosenSet: .constant(SubjectSet(title: "Basics", topics: [Topic(title: "Random", terms: [Term(text: "red blood cell"), Term(text: "shark"), Term(text: "eutrophication"), Term(text: "potometer")])])), teams: .constant([Team(name: "Team1"), Team(name: "Team2")]), timerLength: .constant(30), pointsToWin: 20)
 }
 
 

@@ -15,12 +15,15 @@ struct GameSetupView: View {
     @Binding var chosenSet: SubjectSet
     @State var teams = [Team(name: "Team 1"), Team(name: "Team 2")]
     
+    
+    @State private var pointsToWin = 20
+    
    // @State private var subjectSet: SubjectSet
     
     var body: some View {
 
         NavigationStack {
-            VStack {
+            Form {
             VStack {
                 Text("New Game")
                     .font(.largeTitle)
@@ -28,7 +31,7 @@ struct GameSetupView: View {
                 
                 VStack {
                     VStack (alignment: .leading){
-                        Text("Set: \(chosenSet.title)")
+                        Text("Subject Set: \(chosenSet.title)")
                             .font(.title2)
                             .bold()
                         ForEach($chosenSet.topics) { $topic in
@@ -41,14 +44,21 @@ struct GameSetupView: View {
                         
                     }
                     .padding()
+                    //.background(RoundedRectangle(cornerRadius: 15).foregroundStyle(.white))
+                   
                     .cornerRadius(20)
-                    .border(.black)
+                    .overlay( /// apply a rounded border
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(.purple, lineWidth: 4)
+                    )
                     
                     
                     Stepper("Number of teams: \(numberOfTeams)", value: $numberOfTeams, in: 2...5, onEditingChanged: { _ in
                         updateTeams()
                     })
                     
+                    
+                    Stepper("Points to win: \(pointsToWin)", value: $pointsToWin, in: 15...40)
                     
                     Stepper("Timer length: \(timerLength) seconds", value: $timerLength, in: 20...40)
                     
@@ -62,7 +72,7 @@ struct GameSetupView: View {
                 .padding()
                     
                     
-                    NavigationLink("aha", destination:  GameView(chosenSet: $chosenSet, teams: $teams, timerLength: $timerLength))
+                NavigationLink("Let's Play!", destination:  GameView(chosenSet: $chosenSet, teams: $teams, timerLength: $timerLength, pointsToWin: pointsToWin))
                        
                     
                         .buttonStyle(.borderedProminent)
