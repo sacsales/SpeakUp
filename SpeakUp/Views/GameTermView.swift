@@ -8,11 +8,31 @@
 import SwiftUI
 
 struct GameTermView: View {
+    
+    
+    @Binding var color: Color
+    @Binding var term: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            
+            Rectangle()
+                .frame(width: UIScreen.main.bounds.height * 0.6, height: UIScreen.main.bounds.width * 0.5)
+                .foregroundStyle(color)
+                .clipShape(.rect(cornerRadius: 15))
+            
+            Text(term)
+                .foregroundStyle(.white)
+                .font(.title2)
+                .bold()
+            
+        }
     }
 }
 
 #Preview {
-    GameTermView()
+    GameTermView(color: .constant(.purple), term: .constant("Text"))
 }
+
+
+
