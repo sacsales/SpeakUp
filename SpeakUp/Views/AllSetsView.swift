@@ -56,6 +56,10 @@ struct AllSetsView: View {
         }
         
         .navigationBarBackButtonHidden(true)
+        
+        .onFirstAppear {
+            subjectSetManager.loadSampleData()
+                    }
     }
     
 }

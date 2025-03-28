@@ -18,7 +18,7 @@ import SwiftUI
         
     init() {
         load()
-        loadSampleData()
+        
     }
     
     

@@ -74,10 +74,15 @@ struct GameSetupView: View {
                 
                 Section {
                     
-                    ForEach($teams, id: \.self) { $team in
-                        TextField("Team name", text: $team.name)
-                            .textFieldStyle(.roundedBorder)
+                    ForEach(teams.indices, id: \.self) { index in
+                        Text("Team \(index + 1)")
                     }
+                    
+                    //buggy and annoying awful text fields. dismissed after every letter to be fixed - maybe a separate view?? why does it do this :( 
+//                    ForEach($teams, id: \.self) { $team in
+//                        TextField("Team name", text: $team.name)
+//                            .textFieldStyle(.roundedBorder)
+//                    }
                     
                     
                 }
