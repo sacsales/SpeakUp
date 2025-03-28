@@ -18,8 +18,14 @@ import SwiftUI
         
     init() {
         load()
+        loadSampleData()
     }
     
+    
+    
+    func loadSampleData() {
+        subjectSets.append(SubjectSet.biologyIGCSESet)
+    }
     
     
     func deleteTerm(from subjectIndex: Int, in topicIndex: Int, at termIndex: IndexSet) {

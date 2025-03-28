@@ -82,6 +82,19 @@ struct SetDetailView: View {
                 
                 
             }
+        
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        print(subjectSet)
+                    } label: {
+                        Image(systemName: "circle.fill")
+                    }
+                    
+                }
+                
+                
+            }
             
             
             .sheet(isPresented: $showSheet) {
