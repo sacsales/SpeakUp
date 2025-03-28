@@ -26,9 +26,11 @@ struct ScoreView: View {
                             Text(team.name)
                                 .bold()
                                 .font(.headline)
+                                .foregroundStyle(.black)
                             Text("\(team.points) Points")
                             
                                 .font(.subheadline)
+                                .foregroundStyle(.black)
                             
                         }
                        

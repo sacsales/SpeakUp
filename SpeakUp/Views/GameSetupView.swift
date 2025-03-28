@@ -18,18 +18,20 @@ struct GameSetupView: View {
     
     @State private var pointsToWin = 20
     
-   // @State private var subjectSet: SubjectSet
+    // @State private var subjectSet: SubjectSet
     
     var body: some View {
-
+        
         NavigationStack {
             Form {
-            VStack {
+                
                 Text("New Game")
                     .font(.largeTitle)
                     .bold()
                 
-                VStack {
+                //show subject
+                Section {
+                    
                     VStack (alignment: .leading){
                         Text("Subject Set: \(chosenSet.title)")
                             .font(.title2)
@@ -44,14 +46,19 @@ struct GameSetupView: View {
                         
                     }
                     .padding()
-                    //.background(RoundedRectangle(cornerRadius: 15).foregroundStyle(.white))
-                   
                     .cornerRadius(20)
                     .overlay( /// apply a rounded border
                         RoundedRectangle(cornerRadius: 15)
                             .stroke(.purple, lineWidth: 4)
                     )
                     
+                    
+                }
+                
+                
+                
+                
+                Section {
                     
                     Stepper("Number of teams: \(numberOfTeams)", value: $numberOfTeams, in: 2...5, onEditingChanged: { _ in
                         updateTeams()
@@ -62,41 +69,48 @@ struct GameSetupView: View {
                     
                     Stepper("Timer length: \(timerLength) seconds", value: $timerLength, in: 20...40)
                     
-                    VStack {
-                        ForEach($teams, id: \.self) { $team in
-                            TextField("Team name", text: $team.name)
-                                .textFieldStyle(.roundedBorder)
-                        }
+                    
+                }
+                
+                Section {
+                    
+                    ForEach($teams, id: \.self) { $team in
+                        TextField("Team name", text: $team.name)
+                            .textFieldStyle(.roundedBorder)
                     }
-                }
-                .padding()
-                    
-                    
-                NavigationLink("Let's Play!", destination:  GameView(chosenSet: $chosenSet, teams: $teams, timerLength: $timerLength, pointsToWin: pointsToWin))
-                       
-                    
-                        .buttonStyle(.borderedProminent)
-                        .tint(.purple)
-                        .padding()
-                        .ignoresSafeArea()
-                       
-                    
                     
                     
                 }
-                
-                
             }
             
             
+            
+            
+            
+            
+            
+            
+            
+            NavigationLink("Let's Play!", destination:  GameView(chosenSet: $chosenSet, teams: $teams, timerLength: $timerLength, pointsToWin: pointsToWin))
+            
+                .padding()
+                .buttonStyle(.borderedProminent)
+                .tint(.purple)
+                .padding()
+                .bold()
+            
         }
+        
         .navigationBarBackButtonHidden(true)
-       
-       
+        
+    }
+      
+    
+
            
       
         
-    }
+    
     
       
     private func updateTeams() {
@@ -111,6 +125,8 @@ struct GameSetupView: View {
             }
         }
 }
+
+
 
 #Preview {
     GameSetupView(chosenSet: .constant(SubjectSet(title: "Basics", topics:

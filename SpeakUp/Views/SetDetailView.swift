@@ -5,7 +5,7 @@
 //  Created by Sabrina C. Sales on 07/03/2025.
 //
 
-//get the indexes from other screen....
+//want to add reason why you can't play set yet 
 
 import SwiftUI
 
@@ -62,6 +62,9 @@ struct SetDetailView: View {
                 Text("Play Set")
                     .padding()
             }
+            .onTapGesture {
+                print(subjectSet)
+            }
             .buttonStyle(.borderedProminent)
             .tint(.purple)
             .disabled(checkEmpty(subjectSet: subjectSet))
@@ -94,7 +97,7 @@ struct SetDetailView: View {
     func checkEmpty(subjectSet: SubjectSet) -> Bool {
         
         var checkEmpty = false
-        if subjectSet.topics.count < 2 {
+        if subjectSet.topics.count <= 2 {
             checkEmpty = true
         }
            

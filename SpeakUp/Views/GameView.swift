@@ -22,7 +22,7 @@ struct GameView: View {
     @State var currentTeamIndex = 0
     
     
-    @State var timeRemaining = 5
+    @State var timeRemaining = 30
     @State var isTimerRunning = false
     @Binding var timerLength: Int
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -55,7 +55,9 @@ struct GameView: View {
             VStack {
                 Text("\(teams[currentTeamIndex].name)")
                     .foregroundStyle(.black)
+                
                 Text("\(timeRemaining)")
+                    .foregroundStyle(.black)
                     .font(Font.system(.largeTitle, design: .monospaced))
                     .onReceive(timer) { _ in
                         if self.isTimerRunning {
@@ -77,7 +79,7 @@ struct GameView: View {
                                 timeRemaining = timerLength
                                 skipped = false
                                 
-                                if currentTeamIndex + 1 == teams.endIndex {
+                                if currentTeamIndex + 1 >= teams.endIndex {
                                     currentTeamIndex = 0
                                 } else {
                                     currentTeamIndex += 1
@@ -171,6 +173,7 @@ struct GameView: View {
                                     .font(.title)
                                     .bold()
                                     .padding()
+                                    .foregroundStyle(.black)
                                 ScoreView(teams: $teams)
                                 Button("Go!") {
                                     showScore = false
@@ -193,9 +196,11 @@ struct GameView: View {
                             Text("\(teams[currentTeamIndex].name)'s Turn")
                                 .font(.title)
                                 .bold()
+                                .foregroundStyle(.black)
                             Text("Your topic is...")
                             Text(chosenSet.topics[topicIndex].title)
                                 .font(.largeTitle)
+                                .foregroundStyle(.black)
                             Button("Start!") {
                                 showRect = false
                                 showScore = false
@@ -212,11 +217,11 @@ struct GameView: View {
                 }
             }
           
-            
+              
         }
         
         
-        
+        .background(Color.white)
         
         
         .rotationEffect (isLandscape ? .degrees(90): .degrees(0), anchor: .center)

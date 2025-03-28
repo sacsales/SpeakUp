@@ -26,7 +26,7 @@ struct AllSetsView: View {
                 }
                 
             }
-            .navigationTitle("Sets")
+            .navigationTitle("Subject Sets")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
