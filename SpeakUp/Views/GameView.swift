@@ -156,14 +156,14 @@ struct GameView: View {
                                     .font(.title)
                                     .bold()
                                     .padding()
-                                
+                                    .foregroundStyle(.black)
                                 ScoreView(teams: $teams)
                                 NavigationLink(destination: AllSetsView()) {
                                     Text("End Game")
                                         .padding()
                                 }
                                 .buttonStyle(.borderedProminent)
-                                
+                                .tint(.purple)
                             }
                             
                         } else {
