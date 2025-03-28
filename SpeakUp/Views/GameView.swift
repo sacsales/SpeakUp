@@ -177,7 +177,7 @@ struct GameView: View {
                                 ScoreView(teams: $teams)
                                 Button("Go!") {
                                     showScore = false
-                                    topicIndex = Int.random(in: chosenSet.topics.indices)
+                                    topicIndex = randomTopic()
                                 }
                                 .buttonStyle(.borderedProminent)
                                 
@@ -265,6 +265,14 @@ struct GameView: View {
         }
         return winner
         
+    }
+    
+    
+    func randomTopic() -> Int  {
+        
+       
+        var topicIndex = Int.random(in: 0..<$chosenSet.topics.count - 1)
+        return topicIndex
     }
     
     
