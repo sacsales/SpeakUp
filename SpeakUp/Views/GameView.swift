@@ -79,7 +79,7 @@ struct GameView: View {
                                 timeRemaining = timerLength
                                 skipped = false
                                 
-                                if currentTeamIndex + 1 >= teams.endIndex {
+                                if currentTeamIndex + 1 >= teams.count {
                                     currentTeamIndex = 0
                                 } else {
                                     currentTeamIndex += 1
