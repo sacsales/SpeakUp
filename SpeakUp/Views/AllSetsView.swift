@@ -52,14 +52,12 @@ struct AllSetsView: View {
         }
         
         .sheet(isPresented: $showHelpSheet) {
-            HelpSheetView()
+            HelpSheetView(subjectSetManager: subjectSetManager)
         }
         
         .navigationBarBackButtonHidden(true)
         
-        .onFirstAppear {
-            subjectSetManager.loadSampleData()
-                    }
+        
     }
     
 }

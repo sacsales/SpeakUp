@@ -11,6 +11,9 @@ import SwiftUI
 
 struct HelpSheetView: View {
     
+    @ObservedObject var subjectSetManager: SubjectSetManager
+    @Environment(\.dismiss) var goAway
+    
     
     var body: some View {
         
@@ -58,7 +61,29 @@ You can press the skip button on the left if you think it's hopeless, but you on
 
 Once the timer ends, the game will assign a new team and new topic. Pass the phone to the next team, and repeat!
 
+
+
 """)
+                
+                Text("How do I add subjects?")
+                    .font(.title)
+                    .bold()
+                
+                
+                Text("""
+To make your own subject sets, click the '+' button in the top right hand corner and name your set. Once it pops up on your main screen, click on it to open it up and add topics using the '+' button. Same goes for terms: open up the topic, and click on the '+' to add terms. Swipe left on any term, topic or subject to delete it. 
+
+
+""")
+                
+                
+                Text("Need an example?")
+                Button("Load Sample Set") {
+                    subjectSetManager.loadSampleData()
+                    goAway()
+                }
+               
+                .tint(.purple )
                 
             }
             .padding()
@@ -67,5 +92,5 @@ Once the timer ends, the game will assign a new team and new topic. Pass the pho
 }
 
 #Preview {
-    HelpSheetView()
+    HelpSheetView(subjectSetManager: SubjectSetManager())
 }
