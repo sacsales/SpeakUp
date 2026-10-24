@@ -25,7 +25,7 @@ struct TermsView: View {
                 Text(term.text.wrappedValue)
             }
             .onDelete { indexSet in
-                if !topic.terms.isEmpty { // ✅ Prevents crash when array is empty
+                if !topic.terms.isEmpty { 
                     topic.terms.remove(atOffsets: indexSet)
                    }
               

@@ -30,7 +30,7 @@ struct HelpSheetView: View {
                 Text("""
 Also Known As, or AKA, is an exam revision game where you describe keywords and terms to a partner under a time limit.
                  
-It was introduced to me by our biology teacher. I found it so effective I wanted to create sets for other subjects easily, so I made this!
+It was introduced to me by our biology teacher, Ms Hassan. I found it so effective I wanted to create sets for other subjects easily, so I made this! The fish in the logo is a tribute to our (sadly late) class fish, Bubbles. 
 """)
                 Divider()
                     .opacity(0)
