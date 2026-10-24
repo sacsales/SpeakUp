@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		ECC0C369308D120D009D7AE2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ECC0C367308D1202009D7AE2 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		ECF08BC62D7B355B007B9372 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ECC0C367308D1202009D7AE2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		ECF08BB42D7B3559007B9372 /* SpeakUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeakUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECF08BC52D7B355B007B9372 /* SpeakUpTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeakUpTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECF08BCF2D7B355B007B9372 /* SpeakUpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeakUpUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +80,7 @@
 		ECF08BAB2D7B3559007B9372 = {
 			isa = PBXGroup;
 			children = (
+				ECC0C367308D1202009D7AE2 /* README.md */,
 				ECF08BB62D7B3559007B9372 /* SpeakUp */,
 				ECF08BC82D7B355B007B9372 /* SpeakUpTests */,
 				ECF08BD22D7B355B007B9372 /* SpeakUpUITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECC0C369308D120D009D7AE2 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
